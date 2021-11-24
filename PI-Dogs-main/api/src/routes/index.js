@@ -25,7 +25,7 @@ const getApiData= async()=>{
             id: elem.id,
             image:elem.image.url,//es lo que pide en la ruta principal
             name: elem.name,
-            temperament:elem.temperament,
+            //temperament:elem.temperament,
             height: elem.height,
             weight: elem.weight,
             life_span: elem.life_span,
@@ -83,46 +83,62 @@ let details = await detail.filter(elem=> elem.id == id)
 //Ruta (get/temperament)
 
 
-     router.get('/temperament', async(req, res)=>{
-         const temperamentApi = await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
-         const temps= temperamentApi.data.map(elem=> elem.temperament);
-         console.log(temps)
-             Temperament.findOrCreate({
-                where:{name:elem}
-            });
+    //  router.get('/temperament', async(req, res)=>{
+    //      const temperamentApi = await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
+    //      const temps= temperamentApi.data.map(elem=> elem.temperament);
+    //      const tempsObj= Object.values(temps);
+    //      console.log(tempsObj)
+    //      for(let i=0; i<tempsObj.length;i++) {
+    //         const tempsRepeated= new Set(tempsObj);
         
-             const temperaments=await Temperament.findAll();
-             res.send(temperaments);
+    //         console.log(tempsRepeated)
+    //         const tempsNoRepeated=[...tempsRepeated];
+    //      }
+    //          Temperament.findOrCreate({
+    //             where:{temperament:elem}
+    //         });
+        
+    //          const temperaments=await Temperament.findAll();
+    //          res.send(temperaments);
  
         
-     });
+    //  });
+
+     router.get('/temperament', async (req, res) => {
+        const temperametApi = await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
+        const temperament = temperametApi.data.map(elem => elem.temperament)
+        let mapedTemperaments = temperament.toString().trim().split(/\s*,\s*/);
+        let splitedTemperaments = mapedTemperaments.filter(word => word.length > 0);
+        splitedTemperaments.forEach(elem => {
+            Temperament.findOrCreate({
+                where: {name: elem}
+            })
+            //console.log(splitedTemperaments)
+        });
+        const allTemperaments = await Temperament.findAll();
+        res.send(allTemperaments);
+    })
+     
+
     
 
-//  //Ruta (post/dog)
-// router.post('/dog', async (req,res)=>{
-//     let{name, height, weight, life_span}= req.body;
-//     const dogCreated= await Dog.create({
-//         name,
-//         height,
-//         weight,
-//         life_span,
-//         createdInDb
-//     })
-//     let dogDb= await Dog.create({
-//         name,
-//         height,
-//         weight,
-//         life_span,
-//         createdInDb
-//     })
-//     dogDb= await Dog.findAll({
-//         where:{name}
-//     })
-//     dogCreated.addDog(dogDb)
+ //Ruta (post/dog)
+router.post('/dog', async (req,res)=>{
+    let {name, height, weight, life_span, temperament,createdInDb}= req.body;
+    const dogCreated= await Dog.create({
+        name,
+        height,
+        weight,
+        life_span,
+        createdInDb
+    });
     
-
-//   res.send('Dog successfully created')
-// })
+      let temperamentDb= await Temperament.findAll({
+        where:{name : temperament}
+    });
+    dogCreated.addTemperament(temperamentDb);//trae desde la tabla Temperament lo que le paso
+    res.send('Dog successfully created');
+});
 
 
 module.exports = router;
