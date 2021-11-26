@@ -1,0 +1,13 @@
+body{
+    background-color: bisque;
+    background-image:url('./assets/dogs2.jpg');
+    height: 200px;
+    width: 250px;
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 20px;
+    padding: 50px;
+    
+    
+}
