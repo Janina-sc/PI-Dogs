@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
     id:{
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
+      allowNull: false,//campor requerido sí o sí
       primaryKey: true
     },
     name: {
@@ -15,17 +15,19 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     height:{
-      type:DataTypes.JSON,
-      allowNull: false,
-
+      type: DataTypes.STRING,
+      allowNull: false
     },
     weight:{
-      type: DataTypes.JSON,
-      allowNull:false
+      type: DataTypes.STRING,
+      allowNull: false
     },
     life_span:{
       type: DataTypes.STRING,
     },
+    // image:{
+    //   type:DataTypes.STRING,
+    // },
     createdInDb:{// por si quiero hacer llamado sólo a algo de db
     type: DataTypes.BOOLEAN,
     allowNull: false,

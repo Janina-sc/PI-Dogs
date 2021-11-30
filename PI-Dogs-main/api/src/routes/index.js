@@ -1,14 +1,18 @@
 const { Router } = require('express');
 const axios = require("axios");
-const server = require('../app');
-const {Dog, Temperament} = require('../db')
+const server =require('../app');
+const router = Router();
 
-const {API_KEY, ALL_DOGS}= process.env;
+
+const {Dog, Temperament} = require('../db');
+
+const {API_KEY}= process.env;
+const URL = `https://api.thedogapi.com/v1/breeds?337a1d9f-e6af-4c5a-962a-0e3af3e721ef`;
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 
-const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -16,54 +20,70 @@ const router = Router();
 
 
 //ruta get/dogs y ruta get/dogs/?name=...
-const getApiData= async()=>{
-    const apiUrl= await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
-       
-
-    const apiData= await apiUrl.data.map(elem=>{
+const getApiData = async()=> {
+    const apiUrl = await axios.get(URL);
+    console.log("me devuelve la api")
+    const apiData = await apiUrl.data.map(elem => {
+        
         return {
+            
             id: elem.id,
-            image:elem.image.url,//es lo que pide en la ruta principal
+            image: elem.image.url,
             name: elem.name,
-            //temperament:elem.temperament,
-            height: elem.height,
-            weight: elem.weight,
-            life_span: elem.life_span,
+             temperament:  [elem.temperament].join().split(",").map(elem=>elem.trim()),
+            // // weight_min: parseInt(elem.weight.metric.slice(0, 2).trim()),
+            // // weight_max: parseInt(elem.weight.metric.slice(4).trim()),
+            // // height_min: parseInt(elem.height.metric.slice(0, 2).trim()),
+            // // height_max: parseInt(elem.height.metric.slice(4).trim()),
+             weight:elem.weight,
+             height:elem.height,
+             life_span: elem.life_span,
         };
     });
+      console.log("funciona")
     return apiData;
-};
-     const getDbData = async()=> {
-         return await Dog.findAll({
+}
+     
+    const getDbData = async()=> {
+         return  await Dog.findAll({
              include:{
-             model: Temperament,
+             model: Temperament,//sino lo incluyo cuando quiera crear algo no me los va a tener en cuenta
              attributes: ["name"],
              through:{ // trae los atributos- sólo name
                  attributes:[],
              },
              }
-         })
+         })    
      }
+
      const getAllDogs = async()=> {
          const apiData = await getApiData();
          const dbData= await getDbData();
+         console.log(dbData)
          const dataTotal =apiData.concat(dbData)
       return dataTotal;
      }
+     router.get ('/', async (req, res) => {
+        const data = await getAllDogs();
+        res.json(data);
+        });
+
      router.get('/dogs', async(req, res)=>{
-         const name= req.query.name
-         const totalDogs= await getAllDogs()
-         if(name){//puedo dejarlo así o armar la ruta('/dogs?name=)
-             let dogName= await totalDogs.filter(elem=>elem.name.toLowerCase().includes(name.toLocaleLowerCase()))
+         const name= req.query.name;
+         
+         let totalDogs= await getApiData();
+         if(name){
+             let dogName= await totalDogs.filter(elem=>elem.name.toLowerCase().includes(name.toLowerCase()));
          dogName.length ?
          res.status(200).send(dogName):
-         res.status(400).send("Breed not found")
+         res.status(404).send("Breed not found");
             } else{//si no hay un query
-               res.status(200).send(totalDogs)
+            res.status(200).json(totalDogs)
+       
             }
       })
      
-//       
+      
 
 
 //ruta get/dogs/{idRaza}:
@@ -80,35 +100,35 @@ let details = await detail.filter(elem=> elem.id == id)
  };
 });
 
-//Ruta (get/temperament)
+// // //Ruta (get/temperament)
 
 
-    //  router.get('/temperament', async(req, res)=>{
-    //      const temperamentApi = await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
-    //      const temps= temperamentApi.data.map(elem=> elem.temperament);
-    //      const tempsObj= Object.values(temps);
-    //      console.log(tempsObj)
-    //      for(let i=0; i<tempsObj.length;i++) {
-    //         const tempsRepeated= new Set(tempsObj);
+// //     //  router.get('/temperament', async(req, res)=>{
+// //     //      const temperamentApi = await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
+// //     //      const temps= temperamentApi.data.map(elem=> elem.temperament);
+// //     //      const tempsObj= Object.values(temps);
+// //     //      console.log(tempsObj)
+// //     //      for(let i=0; i<tempsObj.length;i++) {
+// //     //         const tempsRepeated= new Set(tempsObj);
         
-    //         console.log(tempsRepeated)
-    //         const tempsNoRepeated=[...tempsRepeated];
-    //      }
-    //          Temperament.findOrCreate({
-    //             where:{temperament:elem}
-    //         });
+// //     //         console.log(tempsRepeated)
+// //     //         const tempsNoRepeated=[...tempsRepeated];
+// //     //      }
+// //     //          Temperament.findOrCreate({
+// //     //             where:{temperament:elem}
+// //     //         });
         
-    //          const temperaments=await Temperament.findAll();
-    //          res.send(temperaments);
+// //     //          const temperaments=await Temperament.findAll();
+// //     //          res.send(temperaments);
  
         
-    //  });
+// //     //  });
 
      router.get('/temperament', async (req, res) => {
-        const temperametApi = await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
+        const temperametApi = await axios.get(URL);
         const temperament = temperametApi.data.map(elem => elem.temperament)
         let mapedTemperaments = temperament.toString().trim().split(/\s*,\s*/);
-        let splitedTemperaments = mapedTemperaments.filter(word => word.length > 0);
+        let splitedTemperaments = mapedTemperaments.filter(temp => temp.length > 0);
         splitedTemperaments.forEach(elem => {
             Temperament.findOrCreate({
                 where: {name: elem}
@@ -124,11 +144,15 @@ let details = await detail.filter(elem=> elem.id == id)
 
  //Ruta (post/dog)
 router.post('/dog', async (req,res)=>{
-    let {name, height, weight, life_span, temperament,createdInDb}= req.body;
+    let {name, height,weight, life_span, temperament,createdInDb}= req.body;
     const dogCreated= await Dog.create({
         name,
         height,
         weight,
+        // height_min,
+        // height_max,
+        // weight_min,
+        // weight_max,
         life_span,
         createdInDb
     });
@@ -137,7 +161,7 @@ router.post('/dog', async (req,res)=>{
         where:{name : temperament}
     });
     dogCreated.addTemperament(temperamentDb);//trae desde la tabla Temperament lo que le paso
-    res.send('Dog successfully created');
+    res.status(200).send('Dog successfully created');
 });
 
 
