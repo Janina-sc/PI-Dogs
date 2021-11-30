@@ -8,7 +8,7 @@ import { store} from './store'
 
 ReactDOM.render(
   //envolver el archivo raíz en el provider
-  <Provider store={store}> 
+  <Provider store={store}>
   <React.StrictMode>
     <App />
   </React.StrictMode>,

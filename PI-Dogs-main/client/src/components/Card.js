@@ -7,8 +7,8 @@ export default function DogCard({image, name, temperament, weight, height, life_
             <h3>{name}</h3>
             <h5>{temperament}</h5>
             <h5>{weight}</h5>
-            <h5>{height}</h5>
-            <h5>{life_span}</h5>
+            {/* <h5>{height}</h5>
+            <h5>{life_span}</h5> */}
             
         </div>
     )
