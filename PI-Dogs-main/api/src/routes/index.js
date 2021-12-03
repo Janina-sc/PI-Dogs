@@ -29,11 +29,6 @@ const getApiData = async()=> {
             temperament:  [elem.temperament].join(" ").split(",").map(elem=>elem.trim()),
             weight:elem.weight,
             height:elem.height,
-            
-            // weight_min: parseInt(elem.weight.metric.slice(0, 2).trim()),
-            // weight_max: parseInt(elem.weight.metric.slice(4).trim()),
-            // height_min: parseInt(elem.height.metric.slice(0, 2).trim()),
-            // height_max: parseInt(elem.height.metric.slice(4).trim()),
             life_span: elem.life_span,
         };
     });
