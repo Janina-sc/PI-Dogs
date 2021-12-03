@@ -3,6 +3,8 @@ import {BrowserRouter, Routes, Route } from 'react-router-dom';//ojo le saqué S
 import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import Card from './components/Card';
+import DogCreate from './components/DogCreate';
+import Detail from './components/Detail'
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
         <Route exact path= '/' element={<LandingPage/>}></Route>
         <Route path ='/home' element={<Home/>}></Route>
         <Route path ='/card' element={<Card/>}></Route>
+        <Route path ='/createDog' element={<DogCreate/>}></Route>
+        <Route path ='/dog/:id' element={<Detail/>}></Route>
         
       
       </Routes>

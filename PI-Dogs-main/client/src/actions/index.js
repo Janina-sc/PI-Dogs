@@ -1,16 +1,31 @@
 import axios from "axios";
-const {API_KEY, ALL_DOGS} =process.env;
 
 
 export function getDogs(){
     return async function(dispatch){
-        var json= await axios.get(`${ALL_DOGS}?key=${API_KEY}`); //acá se conecta el back y el front, la ruta que en el back me trae todos los dogs
+        var json= await axios.get("http://localhost:3001/dogs",{
+
+        }); //acá se conecta el back y el front, la ruta que en el back me trae todos los dogs
         return dispatch({
         type:"GET_DOGS",
         payload: json.data
     })
     
 }
+}
+export function getNameDogs(name){
+    return async function(dispatch){
+        try{
+            var json= await axios.get("http://localhost:3001/dogs?name=" + name)//ruta del back de búsqueda de name por query y le paso el name o payload
+        return dispatch({
+            type: "GET_NAME_DOGS",
+            payload:json.data//el resultado de la búsqueda
+        })
+        } catch(error){
+            console.log(error)
+        }
+    }
+
 }
 
 export  function sortBreedsByName(payload){
@@ -19,29 +34,51 @@ export  function sortBreedsByName(payload){
         payload
     }
 }
-export  function sortByWeightMax(payload){
+export  function sortByWeight(payload){
+
     return {
-        type: "ORDER_BY_WEIGHT_MAX",
+        type: "ORDER_BY_WEIGHT",
         payload
     }
 }
-export  function sortByWeightMin(payload){
-    return {
-        type: "ORDER_BY_WEIGHT_MIN",
-        payload
-    }
-}
+
 export function filterByTemperament(payload){
+    console.log(payload)
     return async function(dispatch){
-        var json= await axios.get(`${ALL_DOGS}?key=${API_KEY}`);
+        var json= await axios.get("https://localhost:3001/temperament",{
+
+        });
         var allTemperaments=json.data.map(elem=>elem.temperament)
     return dispatch ({
         type:'FILTER_BY_TEMPERAMENT',
         payload:allTemperaments
 
     })
+    }
 }
-}
+
+
+export function getTemperament(){//para la searchbar
+        return async function(dispatch){
+            var info=await axios.get("https://localhost:3001/temperament",{
+
+            });
+            return dispatch({
+                type:"GET_TEMPERAMENT",
+                payload:info.data
+            })
+        }
+    }
+    
+export function postDog(payload){
+        return async function(dispatch){
+            const response= await axios.post("https://localhost:3001/dogs", payload)
+        console.log(response)
+        return response;
+        }
+    }
+
+
 
 
 export function filterByCreation(payload){
@@ -49,5 +86,21 @@ export function filterByCreation(payload){
         type: "FILTER_BY_CREATION",
         payload
     }
-
 }
+export function getDetail(id){
+    return async function(dispatch){
+        try{
+            var json=await axios.get("https:localhost:3001/dog" + id);
+            return dispatch({
+                type:"GET_DETAIL",
+                payload: json.data
+            })
+        }catch(error){
+
+        }
+    }
+}
+
+    
+
+
