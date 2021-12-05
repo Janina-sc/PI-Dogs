@@ -8,7 +8,7 @@ import {getDetail} from '../actions/index';
 
 
 export default function Detail(props){
-console.log(props)
+
 let {id}=useParams();
 const dispatch=useDispatch();
 
@@ -16,11 +16,14 @@ useEffect(()=>{
     dispatch(getDetail(id))//para acceder al id
 },[dispatch,id])
 const myDog=useSelector((state)=>state.detail)//el estado inicial del reducer
+// console.log(detail)
 return (
     <div>
         {
         
-        myDog ?
+        myDog?
+
+        
         <div>
              <h1>Me llamo{myDog.name}</h1> {/*muestra el name en index 3 del array */}
           {/* <image src={myDog.image}/>
@@ -32,7 +35,9 @@ return (
           {/* <h3>Vida promedio{myDog.life_span}</h3> */}
 
         </div> : <p>Loading...</p>
+        
 }
+
     <Link to= '/home'>
         <button>Volver</button>
     </Link>

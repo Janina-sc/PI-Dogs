@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from "react";
-
 import {getTemperament, postDog} from '../actions/index'
+
 
 function validate(input){
     let errors={};
@@ -29,9 +28,9 @@ else if(!input.life_span||!input.life_span===Number){
 
 return errors;
 }
-
 export default function DogCreate(){
     const dispatch=useDispatch();
+    const navigate=useNavigate()
    
     const temperament= useSelector((state)=> state.temperament)//traigo el estado
     const [errors, setErrors]=useState({});
@@ -82,7 +81,7 @@ export default function DogCreate(){
         }
         ));
         dispatch(postDog(input))
-        alert("Perro exitosamente creado")
+        alert("Perro exitosamente agregado")
         setInput({
             name:"",
             height_min:"",
@@ -93,20 +92,117 @@ export default function DogCreate(){
             temperament:[]
 
         })
+        navigate.push('/home')
        
     }
 
   useEffect(() => {
       dispatch(getTemperament())
-      }, []);
+      }, [dispatch]);
+
       return(
           <div>
+        <h1>Agregá un perro</h1>
+        <Link to= '/home'><button>Volver</button></Link>
+        <div>
+        <form onSubmit={(e)=>handleSubmit(e)}/>
+        </div>
+        <div>
+                    <label>Nombre:</label>
+                    <input key="name" type="text"
+                    value={input.name}
+                    name="name" onChange={(e)=>handleChange(e)}>
+                   </input>
+                   {errors.name && (
+                       <p>{errors.name}</p>
+                   )}
+                      </div>
+
+
+                     <div>
+                      <label>Altura mínima(cm.):</label>
+                      <input key="alturamin" type="number"
+                      value={input.height_min}
+                      name="alturamin"onChange={(e)=>handleChange(e)}>
+                         {errors.height_min && (
+                          <p>{errors.height_min}</p>
+                      )} 
+                      </input>
+                      </div>
+                      <div>
+                      <label>Altura máxima(cm.):</label>
+                      <input key="alturamax" type="number"
+                      value={input.height_max}
+                      name="alturamax"onChange={(e)=>handleChange(e)}> 
+                      {errors.height_max && (
+                          <p>{errors.height_max}</p>
+                      )}
+                      </input>
+                      </div>
+
+                      <div>
+                      <label>Peso mínimo(kg.):</label>
+                      <input key="pesomin" type="number"
+                      value={input.weight_min}
+                      name="pesomin"onChange={(e)=>handleChange(e)}></input>
+                      </div>
+                      <div>
+                      <label>Peso máximo(kg.):</label>
+                      <input key="pesomax" type="number"
+                      value={input.weight_max}
+                      name="pesomax"onChange={(e)=>handleChange(e)}></input>
+                      {errors.weight_max && (
+                          <p>{errors.weight_max}</p>
+                      )}
+                      </div>
+                      <div>
+                      <label>Años de vida:</label>
+                      <input key="vida" type="number"
+                      value={input.life_span}
+                      name="vida"onChange={(e)=>handleChange(e)}></input>
+                      {errors.life_span && (
+                          <p>{errors.life_span}</p>
+                      )}
+                      </div>
+
+                      <div>
+                      
+                      <select name="temperament" multiple onChange={(e)=> handleSelect(e)}>
+                          
+                    
+                        {temperament.map(temperament=>(
+                            <option key={temperament.id} value={temperament.name}>{temperament.name}</option>
+                        ))}
+                    
+                </select >
+                <ul><li>{input.temperament.map(elem=>elem + ",")}</li></ul>
+                <button type="submit">Agregar perro</button>
+                      </div>
+                      
+                      
+            {input.temperament.map(elem=>
+                <div>
+                    <p>{elem}</p>
+                    <button handleDelete={(e)=> handleDelete(e)}>X</button>
+                    </div>)}
+                    
+
+
+
+        </div>
+        
+      )
+    }
+
+
+/*
+          <div>
               <Link to='/home'><button>Volver</button></Link>
-            <h1>Creá un perro</h1>
+            <h1>Agregá un perro</h1>
             <form onSubmit={(e)=>handleSubmit(e)}>
                 <div>
                     <label>Nombre:</label>
-                    <input
+                    <input key="name"
                     type="text"
                     value={input.name}
                     name="name">
@@ -160,8 +256,8 @@ export default function DogCreate(){
                     name="pesomax">
                         onChange={(e)=>handleChange(e)}
                     </input>
-                    {errors.weight_min &&(
-                        <p>{errors.weight_min}</p>
+                    {errors.weight_max &&(
+                        <p>{errors.weight_max}</p>
                     )}
                 </div>
 
@@ -169,7 +265,7 @@ export default function DogCreate(){
                 <label>Expectativa de vida:</label>
                     <input
                     type="text"
-                    value={input.life_span}
+                    value={input.life_span + "años"} 
                     name="life_span">
                         onChange={(e)=>handleChange(e)}
                     </input>
@@ -182,12 +278,12 @@ export default function DogCreate(){
                 >
                     
                         {temperament.map(temperament=>(
-                            <option value={temperament.name}>{temperament.name}</option>
+                            <option key={temperament.id} value={temperament.name}>{temperament.name}</option>
                         ))}
                     
                 </select >
                 <ul><li>{input.temperament.map(elem=>elem + ",")}</li></ul>
-                <button type="submit">Crear perro</button>
+                <button type="submit">Agregar perro</button>
                 </div>
 
             </form>
@@ -197,5 +293,5 @@ export default function DogCreate(){
                     <button handleDelete={(e)=> handleDelete(e)}>X</button>
                     </div>)}
           </div>
-      )
-    }
+
+*/

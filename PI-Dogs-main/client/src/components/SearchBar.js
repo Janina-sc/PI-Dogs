@@ -5,25 +5,25 @@ import { getNameDogs } from "../actions";
 
 export default function SearchBar(){
     const dispatch= useDispatch();
-    const [name, setName]=useState("")
+    const [name, setName]=useState("");//conecta a React,declara una var de estado
 
-    function handleInputChange(e){
+    function handleInputChange(e){//para guardar en mi estado local lo que vayan poniendo
         e.preventDefault()
         setName(e.target.value)
-        console.log(name)//para ver
+        //console.log(name)//para ver lo que va trayendo
 
     }
     function handleSubmit(e){
         e.preventDefault()
+        dispatch(getNameDogs(name))//name  lo que el usuario vaya tipeando
         setName("")//ver
-        dispatch(getNameDogs(name))//name va a ser mi estado local, lo que el usuario vaya tipeando
     }
 
     return (
         <div>
             <input 
             type="text"
-            placeholder="Buscar..."
+            placeholder="Buscar..."//ver ésto
             onChange={(e)=>handleInputChange(e)}
             />
             <button type="submit" onClick={(e)=>handleSubmit(e)}>Buscar</button>

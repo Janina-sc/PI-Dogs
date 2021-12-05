@@ -79,15 +79,18 @@ switch(action.type){
 
         case "FILTER_BY_TEMPERAMENT":
         
-             //const allDogs=state.allDogs//que filtre sobre todos los perros- la lógica antes de return
-            
-             const temperamentFilter=action.payload.map(elem=>elem.temperament)
-           
+        //const allDogs=state.allDogs//que filtre sobre todos los perros- la lógica antes de return
+        //const temperamentFilter = action.payload.map(elem => elem.name)
+        //console.log(temperamentFilter, "reducer")
+                
              return {
                 ...state,
-                temperament:temperamentFilter
+                temperament: action.payload
                 
             }
+
+
+            
             
             
             case "POST_DOG":
@@ -96,16 +99,18 @@ switch(action.type){
           }
             case "FILTER_BY_CREATION":
                
-                const createdFilter=action.payload ==="Creados" ? state.allDogs.filter(elem=>elem.createdInDb) : state.allDogs.filter(elem=>!elem.createdInDb)//creados, de la api y todos
+                const createdFilter=action.payload ==="Creados" ? state.allDogs.filter(elem => elem.createdInDb === true) : state.allDogs.filter(elem=> elem.createdInDb === false)//creados, de la api y todos
+                //console.log(createdFilter, ' filter ')
+                //console.log(state.allDogs, ' state ')
                 return {
                     ...state,
-                    allDogs:action.payload==="Todos" ? state.allDogs :createdFilter
+                    dogs :action.payload==="Todos" ? state.allDogs :createdFilter
                 }
 
                 case "GET_DETAIL":
                     return{
                         ...state,
-                        detail:action.payload
+                        detail:action.payload.data
 
                     }
                 default:
