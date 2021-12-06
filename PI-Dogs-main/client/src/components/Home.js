@@ -47,7 +47,9 @@ dispatch(getDogs());//resetea para que me traiga todo de nuevo, por si se buggea
     
 
     function handleFilterByTemperament(e){
-dispatch(getTemperament(e.target.value))
+dispatch(filterByTemperament(e.target.value))
+setCurrentPage(1);
+setOrden(`Ordenado ${e.target.value}`)
     }
     
 
@@ -102,7 +104,7 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
                         </div>
 
                 <div>
-                <select onChange={e=>handleFilterByCreation(e)}> 
+                <select onChange={(e)=>handleFilterByCreation(e)}> 
                     <option value= "Todos">Todos</option>
                     <option value="Creados">Creados</option>
                     <option value="Provenientes de la Api">Provenientes de la API</option>
@@ -111,19 +113,19 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
                 
 
                         <div>
-                <select onChange={e=>handleSortBreedsByName(e)}>
+                <select onChange={(e)=>handleSortBreedsByName(e)}>
                     <option value="asc">Raza de la A la Z</option>
                     <option value="desc">Raza de la Z a la A</option>
                 </select>
                 </div>
 
-                <select  onChange={e=>handleSortByWeight(e)}>
+                <select  onChange={(e)=>handleSortByWeight(e)}>
                     <option value="asc">Buscar por peso  ascendente</option>
                     <option value="des">Buscar por peso descendente</option>
                 </select>
 
 
-                { currentDogs?.map(elem=>{//después del paginado sólo voy a mapear lo de cada pág
+                { currentDogs?.map((elem)=>{//después del paginado sólo voy a mapear lo de cada pág
                         return (
                             <fragment>
                                 <Link to={'/dog' + elem.id}>
@@ -131,7 +133,8 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
                         image={elem.image} 
                         name={elem.name} 
                         temperament={elem.temperament} 
-                        weight={elem.weight.metric} 
+                        weight={elem.weight.metric}
+                        key={elem.id} 
                          
                         />
                         </Link>

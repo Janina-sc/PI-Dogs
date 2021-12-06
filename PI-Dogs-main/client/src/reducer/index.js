@@ -78,9 +78,10 @@ switch(action.type){
                 }
 
         case "FILTER_BY_TEMPERAMENT":
+           
         
-        //const allDogs=state.allDogs//que filtre sobre todos los perros- la lógica antes de return
-        //const temperamentFilter = action.payload.map(elem => elem.name)
+        // const allDogs=state.allDogs//que filtre sobre todos los perros- la lógica antes de return
+         const temperamentFilter = action.payload.map(elem => elem.name)
         //console.log(temperamentFilter, "reducer")
                 
              return {
