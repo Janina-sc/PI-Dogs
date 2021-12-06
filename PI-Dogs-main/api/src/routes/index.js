@@ -129,9 +129,11 @@ router.post('/dog', async (req,res)=>{
         createdInDb
     });
     //console.log(dogCreated)
-      let temperamentDb= await Temperament.findAll({
+    console.log(temperament, 'temperamentos')
+      let temperamentDb = await Temperament.findAll({
         where:{name : temperament}
     });
+    console.log(temperamentDb, ' db found')
     dogCreated.addTemperament(temperamentDb);//trae desde la tabla Temperament lo que le paso
     res.status(200).send('Dog successfully created');
 });
