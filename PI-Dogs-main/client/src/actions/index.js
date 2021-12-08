@@ -59,7 +59,7 @@ export function filterByTemperament(){
 
 
 
-export function getTemperament(){//para la searchbar
+export function getTemperament(payload){//para la searchbar
         return async function(dispatch){
             var info=await axios.get("http://localhost:3001/temperament");
             return dispatch({
@@ -99,7 +99,3 @@ export function getDetail(id){
         }
     }
 }
-
-    
-
-

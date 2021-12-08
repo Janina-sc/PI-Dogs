@@ -5,46 +5,49 @@ import { useState,useEffect } from "react";
 import {getTemperament, postDog} from '../actions'
 
 
-function validate(input){
-    let errors={};
+// function validate(input){
+//     let errors={};
     
-    if((!input.name) && (!input.name.length >3 || !input.name.length < 80)){
-        errors.name= "Es requerido un nombre de Perro que contenga entre 3 y 80 letras"
-        
-
+//     if((!input.name) && (!input.name.length >3 || !input.name.length < 80)){
+//         errors.name= "Es requerido un nombre de Perro que contenga entre 3 y 80 letras"
+//         }
    
-    } else if((!input.height_min) ||(!input.height_min===Number)){
-        errors.height_min="Es requerida una altura mínima";
-    }
-    else if((!input.height_max)||(!input.height_max===Number)){
-    errors.height_max="Es requerida una altura máxima";
-}
-else if(!input.weight_min||!input.weight_min===Number){
-    errors.weight_min="Es requerido un peso mínimo";
-}
-else if(!input.weight_max||!input.weight_max===Number){
-    errors.weight_max="Es requerido un peso máximo";
-}
-else if(!input.life_span||!input.life_span===Number){
-    errors.life_span="Es requerida vida promedio";
-}
+// else if((!input.height_min) &&(!input.height_min===Number)){
+//         errors.height_min="Es requerida una altura mínima";
+//     }
+//     else if((!input.height_max)&&(!input.height_max===Number)){
+//     errors.height_max="Es requerida una altura máxima";
+// }
+// else if(!input.weight_min && !input.weight_min===Number){
+//     errors.weight_min="Es requerido un peso mínimo";
+// }
+// else if(!input.weight_max && !input.weight_max===Number){
+//     errors.weight_max="Es requerido un peso máximo";
+// }
+// else if(!input.life_span_min && !input.life_span_min===Number ){
+// errors.life_span_min="Es requerido un valor mínimo ";
+    
+// } else if(!input.life_span_max && !input.life_span_max===Number ){
+//     errors.life_span_max="Es requerido un valor máximo ";
+// }
 
-
-return errors;
-}
+// return errors;
+// }
 export default function DogCreate(){
     const dispatch=useDispatch();
     const navigate=useNavigate()
    
     const temperament= useSelector((state)=> state.temperament)//traigo el estado
-    const [errors, setErrors]=React.useState({});
-    const [input, setInput]=React.useState({ //para guardar lo del form
+    const [errors, setErrors]=useState({});
+    const [input, setInput]=useState({ //para guardar lo del form
     name:"",
     height_min:"",
     height_max:"",
     weight_min:"",
     weight_max:"",
-    life_span:"",
+    life_span_min:"",
+    life_span_max:"",
+    createdInDb:true,
     temperament:[]//para agregar uno o más de uno
 
   })
@@ -57,17 +60,17 @@ export default function DogCreate(){
   }
 
   function handleChange(event){// al estado input se le agrega lo que se está modificando
-    console.log("funciona")
+    //console.log("funciona")
       setInput({
           ...input,
           [event.target.name]:event.target.value
         })
-          setErrors( validate({
-            ...input,
-            [event.target.name]:event.target.value
+    //       setErrors( validate({
+    //         ...input,
+    //         [event.target.name]:event.target.value
             
         
-      }))
+    //   }))
     }
     
 
@@ -79,12 +82,12 @@ export default function DogCreate(){
     }
     function handleSubmit(e){
         e.preventDefault();
-        console.log(input)
-        setErrors(validate({
-            ...input,
-            [e.target.value.name]:e.target.value
-        }
-        ));
+        //console.log(input)
+        // setErrors(validate({
+        //     ...input,
+        //     [e.target.value.name]:e.target.value
+        // }
+        // ));
         dispatch(postDog(input))
         alert("Perro exitosamente agregado")
         setInput({
@@ -93,11 +96,13 @@ export default function DogCreate(){
             height_max:"",
             weight_min:"",
             weight_max:"",
-            life_span:"",
+            life_span_min:"",
+            life_span_max:"",
+            createdInDb:true,
             temperament:[]
 
         })
-        navigate('/home')
+        navigate.push('/home')
        
     }
 
@@ -134,7 +139,7 @@ export default function DogCreate(){
                       <label>Altura mínima(cm.):</label>
                       <input 
                       id="alturamin" 
-                      type="number" min="0"  
+                      type="text"  
                       placeholder="Coloca la altura mínima..."
                       value={input.height_min}
                       name="alturamin" 
@@ -153,9 +158,9 @@ export default function DogCreate(){
                       value={input.height_max}
                       name="alturamax"
                       required
-                      onChange={handleChange}> 
+                      onChange={handleChange}/> 
                       
-                      </input>
+                      
                       {errors.height_max && (
                           <p>{errors.height_max}</p>
                       )}
@@ -167,8 +172,8 @@ export default function DogCreate(){
                       placeholder="Coloca el peso mínimo..."
                       value={input.weight_min}
                       name="pesomin"
-                      requirded 
-                      onChange={handleChange}></input>
+                      required 
+                      onChange={handleChange}/>
                       {errors.weight_min && (
                           <p>{errors.weight_min}</p>
                       )}
@@ -180,21 +185,34 @@ export default function DogCreate(){
                       value={input.weight_max}
                       name="pesomax"
                       required 
-                      onChange={handleChange}></input>
+                      onChange={handleChange}/>
                       {errors.weight_max && (
                           <p>{errors.weight_max}</p>
                       )}
                       </div>
+
                       <div>
-                      <label>Años de vida:</label>
-                      <input key="vida" type="number"min="0"
-                      placeholder="Coloca la expectativa de vida promedio..."
-                      value={input.life_span}
-                      name="vida"
+                      <label>Años de vida mínimo:</label>
+                      <input key="vidamin" type="number" min="0"
+                      placeholder="Coloca mínimo de vida..."
+                      value={input.life_span_min}
+                      name="vidamin"
                       required
-                      onChange={handleChange}></input>
-                      {errors.life_span && (
-                          <p>{errors.life_span}</p>
+                      onChange={handleChange}/>
+                      {errors.life_span_min && (
+                          <p>{errors.life_span_min}</p>
+                      )}
+                      </div>
+                      <div>
+                      <label>Años de vida máximo:</label>
+                      <input key="vidamax" type="number" 
+                      placeholder="Coloca máximo de vida..."
+                      value={input.life_span_max}
+                      name="vidamax"
+                      required
+                      onChange={handleChange}/>
+                      {errors.life_span_max && (
+                          <p>{errors.life_span_max}</p>
                       )}
                       </div>
 
@@ -203,7 +221,8 @@ export default function DogCreate(){
                       <select name="temperament" multiple onChange={(e)=> handleSelect(e)}>
                           
                     
-                        {temperament.map(temperament=>(
+                          <option value="">Selecciona temperamentos</option>
+                        {temperament?.map(temperament=>(
                             <option key={temperament.id} value={temperament.name}>{temperament.name}</option>
                         ))}
                     
@@ -225,10 +244,10 @@ export default function DogCreate(){
              errors.life_span) &&
                     <input type="submit"/>
 } 
-      <input type="submit" 
+      {/* <input type="submit" 
       className={(errors.username ||errors.password
         ||errors.height_min||errors.height_max || errors.weight_min || errors.weight_max
-        ||errors.life_span)? "disabled" :"enabled"}/>
+        ||errors.life_span)? "disabled" :"enabled"}/> */}
  
                   </form>
                     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogs,  filterByTemperament,  filterByCreation, sortBreedsByName, sortByWeight, getTemperament } from "../actions";
+import { getDogs,  filterByTemperament,  filterByCreation, sortBreedsByName, sortByWeight } from "../actions";
 import {Link} from "react-router-dom";
 import Card from './Card';
 import Paginado from "./Paginado";
@@ -24,7 +24,7 @@ export default function Home(){
     }
 
     useEffect(() => {//se ejecuta cada vez que se renderiza y se renderiza cada vez que el estado cambia
-        dispatch(getDogs(), filterByTemperament(), getTemperament())//es como el mapDispatchToProps
+        dispatch(getDogs(), filterByTemperament(), filterByCreation(), sortByWeight(), sortBreedsByName())//es como el mapDispatchToProps
         
     }, [dispatch])//[]para evitar loops infinitos, le agrego de lo que depende el mountDispatch
 
@@ -34,8 +34,15 @@ export default function Home(){
         dispatch(filterByTemperament())
     }, [dispatch])
 
-    console.log('renderizando')
+    //console.log('renderizando')
 
+    useEffect(() => {
+        dispatch(filterByCreation())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(sortByWeight())
+    }, [dispatch])
     
 
     
@@ -56,7 +63,10 @@ setOrden(`Ordenado ${e.target.value}`)
 
 
     function handleFilterByCreation(e){
-dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la action lo que viene del payload
+        e.preventDefault()
+dispatch(filterByCreation(e.target.value))
+setCurrentPage(1);
+setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la action lo que viene del payload
     }
     function handleSortBreedsByName(e){
         e.preventDefault();
@@ -68,7 +78,7 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
         e.preventDefault();
         dispatch(sortByWeight(e.target.value))
         setCurrentPage(1);
-        setOrden(`Ordenado ${e.target.value}`)
+        setOrden(`Ordenado ${e.target.value}`)//estado local vacío para que cuando seteo la página se renderice
     }
     
 
@@ -79,7 +89,7 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
             </div>
 
             <div>
-            <Link to= '/createdog'>Agregar perro</Link>
+            <Link to= '/createdog'>Agregar raza</Link>
             </div>
             <div>
             <button onClick={e=>{handleClick(e)}}>
@@ -95,6 +105,7 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
                 <div>
                   <label>Temperamento:</label>
 				<select onChange={(e)=> handleFilterByTemperament(e)}>
+                    <option value="">Todos los temperamentos</option>
 					{ temperament?.map((temperament) => (
                     
                     <option key={temperament.id}value={temperament.id}>{temperament.name}</option>
@@ -104,10 +115,12 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
                         </div>
 
                 <div>
-                <select onChange={(e)=>handleFilterByCreation(e)}> 
+                    <label> Elegir según fuente de creación:</label>
+                <select onChange={handleFilterByCreation}> 
+                     
                     <option value= "Todos">Todos</option>
                     <option value="Creados">Creados</option>
-                    <option value="Provenientes de la Api">Provenientes de la API</option>
+                 <option value="Provenientes de la Api">Provenientes de la API</option>
                 </select>
                 </div>
                 
@@ -121,7 +134,7 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
 
                 <select  onChange={(e)=>handleSortByWeight(e)}>
                     <option value="asc">Buscar por peso  ascendente</option>
-                    <option value="des">Buscar por peso descendente</option>
+                    <option value="desc">Buscar por peso descendente</option>
                 </select>
 
 
@@ -133,7 +146,8 @@ dispatch(filterByCreation(e.target.value))//es lo que viene del select y en la a
                         image={elem.image} 
                         name={elem.name} 
                         temperament={elem.temperament} 
-                        weight={elem.weight.metric}
+                        weight_min={elem.weight_min}
+                        weight_max={elem.weight_max}
                         key={elem.id} 
                          
                         />
