@@ -5,7 +5,7 @@ import { getNameDogs } from "../actions/index";
 
 export default function SearchBar(){
     const dispatch= useDispatch();
-    const [name, setName]=useState("");//conecta a React,declara una var de estado
+    const [name, setName]=useState("");//etado local,conecta a React,declara una var de estado
 
     function handleInputChange(e){//para guardar en mi estado local lo que vayan poniendo
         e.preventDefault()
@@ -15,7 +15,7 @@ export default function SearchBar(){
     }
     function handleSubmit(e){
         e.preventDefault()
-        dispatch(getNameDogs(name))//name  lo que el usuario vaya tipeando
+        dispatch(getNameDogs(name))//name es el estdo local, es lo que el usuario vaya tipeando
         setName("")//ver
     }
 
@@ -23,10 +23,10 @@ export default function SearchBar(){
         <div>
             <input 
             type="text"
-            placeholder="Buscar..."//ver ésto
-            onChange={(e)=>handleInputChange(e)}
+            placeholder="Buscar por raza..."//ver ésto
+            onChange={handleInputChange}
             />
-            <button type="submit" onClick={(e)=>handleSubmit(e)}>Buscar</button>
+            <button type="submit" onClick={handleSubmit}>Buscar</button>
         </div>
     )
 }

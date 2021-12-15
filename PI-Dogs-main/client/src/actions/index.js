@@ -21,7 +21,7 @@ export function getNameDogs(name){
             var json= await axios.get("http://localhost:3001/dogs?name=" + name)//ruta del back de búsqueda de name por query y le paso el name o payload
         return dispatch({
             type: "GET_NAME_DOGS",
-            payload:json.data//el resultado de la búsqueda
+            payload:json.data//el resultado de la búsqueda, lo que devuelve la ruta
         })
         } catch(error){
             console.log(error)
@@ -44,22 +44,20 @@ export  function sortByWeight(payload){
     }
 }
 
-export function filterByTemperament(){
-    
-    return async function(dispatch){
-        var json= await axios.get("http://localhost:3001/temperament");
+export function filterByTemperament(payload){
         
-    return dispatch ({
+    return  ({
         type:'FILTER_BY_TEMPERAMENT',
-        payload:json.data
+        payload,
 
     })
     }
-}
 
 
 
-export function getTemperament(payload){//para la searchbar
+
+
+export function getTemperament(){//para el DogCreate
         return async function(dispatch){
             var info=await axios.get("http://localhost:3001/temperament");
             return dispatch({
@@ -89,7 +87,7 @@ export function filterByCreation(payload){
 export function getDetail(id){
     return async function(dispatch){
         try{
-            var json=await axios.get("https://localhost:3001/dog" + id);
+            var json=await axios.get(`https://localhost:3001/dog/${id}`);
             return dispatch({
                 type:"GET_DETAIL",
                 payload: json.data

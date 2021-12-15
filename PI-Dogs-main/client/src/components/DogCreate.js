@@ -39,7 +39,7 @@ export default function DogCreate(){
    
     const temperament= useSelector((state)=> state.temperament)//traigo el estado
     const [errors, setErrors]=useState({});
-    const [input, setInput]=useState({ //para guardar lo del form
+    const [input, setInput]=useState({ //para guardar lo del form en un estado
     name:"",
     height_min:"",
     height_max:"",
@@ -102,7 +102,7 @@ export default function DogCreate(){
             temperament:[]
 
         })
-        navigate.push('/home')
+        //navigate.push('/home')
        
     }
 
@@ -119,7 +119,7 @@ export default function DogCreate(){
         <form onSubmit={handleSubmit}>
         
         <div>
-                    <label >Nombre:</label>
+                    <label >Raza:</label>
                     <input 
                     key="name" 
                     type="text" 
@@ -139,10 +139,10 @@ export default function DogCreate(){
                       <label>Altura mínima(cm.):</label>
                       <input 
                       id="alturamin" 
-                      type="text"  
+                      type="number"  
                       placeholder="Coloca la altura mínima..."
                       value={input.height_min}
-                      name="alturamin" 
+                      name="height_min" 
                       required
                       onChange={handleChange}>
                           </input>
@@ -156,7 +156,7 @@ export default function DogCreate(){
                       <input key="alturamax" type="number"
                       placeholder="Coloca la altura máxima..."
                       value={input.height_max}
-                      name="alturamax"
+                      name="height_max"
                       required
                       onChange={handleChange}/> 
                       
@@ -171,7 +171,7 @@ export default function DogCreate(){
                       <input key="pesomin" type="number" min="0"
                       placeholder="Coloca el peso mínimo..."
                       value={input.weight_min}
-                      name="pesomin"
+                      name="weight_min"
                       required 
                       onChange={handleChange}/>
                       {errors.weight_min && (
@@ -183,7 +183,7 @@ export default function DogCreate(){
                       <input key="pesomax" type="number"
                       placeholder="Coloca el peso máximo..."
                       value={input.weight_max}
-                      name="pesomax"
+                      name="weight_max"
                       required 
                       onChange={handleChange}/>
                       {errors.weight_max && (
@@ -196,7 +196,7 @@ export default function DogCreate(){
                       <input key="vidamin" type="number" min="0"
                       placeholder="Coloca mínimo de vida..."
                       value={input.life_span_min}
-                      name="vidamin"
+                      name="life_span_min"
                       required
                       onChange={handleChange}/>
                       {errors.life_span_min && (
@@ -208,7 +208,7 @@ export default function DogCreate(){
                       <input key="vidamax" type="number" 
                       placeholder="Coloca máximo de vida..."
                       value={input.life_span_max}
-                      name="vidamax"
+                      name="life_span_max"
                       required
                       onChange={handleChange}/>
                       {errors.life_span_max && (

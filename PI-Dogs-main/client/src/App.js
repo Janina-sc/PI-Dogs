@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Routes, Route } from 'react-router-dom';//ojo le saqué Switch para ver si compila
+import {BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import Card from './components/Card';

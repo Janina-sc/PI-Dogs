@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogs,  filterByTemperament,  filterByCreation, sortBreedsByName, sortByWeight } from "../actions";
+import { getDogs,  filterByTemperament,  filterByCreation, sortBreedsByName, sortByWeight, getTemperament } from "../actions";
 import {Link} from "react-router-dom";
 import Card from './Card';
 import Paginado from "./Paginado";
@@ -12,7 +12,8 @@ export default function Home(){
     const dispatch=useDispatch()//para usar esa constante y despachar mis acciones
     const allDogs= useSelector((state)=>state.dogs)//es llamado cada vez que el componente hook es actualizado,trae lo que está en el state del store de redux,es lo mismo que hacer mapStateToProps, con useSelector traigo todo lo que está en el estado dogs
     const temperament= useSelector((state)=>state.temperament)
-    console.log(temperament)
+    
+    
     const [orden, setOrden]=useState("")//cuando seteo el estado local se renderiza
     const [currentPage, setCurrentPage]= useState(1)//la pág actual va ase 1-seteando estado local
     const [dogsPerPage, setDogsPerPage]=useState(8)//estado local que setea cuantos dogs per page
@@ -24,29 +25,13 @@ export default function Home(){
     }
 
     useEffect(() => {//se ejecuta cada vez que se renderiza y se renderiza cada vez que el estado cambia
-        dispatch(getDogs(), filterByTemperament(), filterByCreation(), sortByWeight(), sortBreedsByName())//es como el mapDispatchToProps
-        
+        dispatch(getDogs())//es como el mapDispatchToProps
+        dispatch(getTemperament())
     }, [dispatch])//[]para evitar loops infinitos, le agrego de lo que depende el mountDispatch
 
     
 
-    useEffect(() => {
-        dispatch(filterByTemperament())
-    }, [dispatch])
-
-    //console.log('renderizando')
-
-    useEffect(() => {
-        dispatch(filterByCreation())
-    }, [dispatch])
-
-    useEffect(() => {
-        dispatch(sortByWeight())
-    }, [dispatch])
     
-
-    
-
     function handleClick(e){
 e.preventDefault();//para que no se refresque y no se rompa
 dispatch(getDogs());//resetea para que me traiga todo de nuevo, por si se buggea
@@ -54,9 +39,10 @@ dispatch(getDogs());//resetea para que me traiga todo de nuevo, por si se buggea
     
 
     function handleFilterByTemperament(e){
+       
 dispatch(filterByTemperament(e.target.value))
 setCurrentPage(1);
-setOrden(`Ordenado ${e.target.value}`)
+setOrden(e.target.value)
     }
     
 
@@ -103,15 +89,17 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
                      </div>
                 
                 <div>
-                  <label>Temperamento:</label>
-				<select onChange={(e)=> handleFilterByTemperament(e)}>
-                    <option value="">Todos los temperamentos</option>
+                    
+                   <label>Temperamentos:</label>
+				<select name="filtertemperament" defaultValue={"default"} onChange={ e => handleFilterByTemperament(e)}>
+                    <option value="default" name="default"> Temperamentos </option>
+                    <option value="all">Todos los temperamentos</option>
 					{ temperament?.map((temperament) => (
                     
-                    <option key={temperament.id}value={temperament.id}>{temperament.name}</option>
+                    <option key={temperament}value={temperament}>{temperament}</option>
                         
                     ))}
-                    </select>
+                    </select> 
                         </div>
 
                 <div>
@@ -143,7 +131,7 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
                             <fragment>
                                 <Link to={'/dog' + elem.id}>
                         <Card 
-                        image={elem.image} 
+                        image={elem.image} image={elem.image? elem.image : elem.image}
                         name={elem.name} 
                         temperament={elem.temperament} 
                         weight_min={elem.weight_min}
