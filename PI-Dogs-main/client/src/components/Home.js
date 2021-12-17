@@ -104,7 +104,7 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
 
                 <div>
                     <label> Elegir según fuente de creación:</label>
-                <select onChange={handleFilterByCreation}> 
+                <select name="filterCreation" onChange={handleFilterByCreation}> 
                      
                     <option value= "Todos">Todos</option>
                     <option value="Creados">Creados</option>

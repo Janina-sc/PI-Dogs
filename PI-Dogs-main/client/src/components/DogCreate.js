@@ -2,40 +2,40 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from "react";
-import {getTemperament, postDog} from '../actions'
+import { postDog} from '../actions'
 
 
-// function validate(input){
-//     let errors={};
+function validate(input){
+    let errors={};
     
-//     if((!input.name) && (!input.name.length >3 || !input.name.length < 80)){
-//         errors.name= "Es requerido un nombre de Perro que contenga entre 3 y 80 letras"
-//         }
+    if((!input.name) && (!input.name.length >3 || !input.name.length < 80)){
+        errors.name= "Es requerido un nombre de Perro que contenga entre 3 y 80 letras"
+        }
    
-// else if((!input.height_min) &&(!input.height_min===Number)){
-//         errors.height_min="Es requerida una altura mínima";
-//     }
-//     else if((!input.height_max)&&(!input.height_max===Number)){
-//     errors.height_max="Es requerida una altura máxima";
-// }
-// else if(!input.weight_min && !input.weight_min===Number){
-//     errors.weight_min="Es requerido un peso mínimo";
-// }
-// else if(!input.weight_max && !input.weight_max===Number){
-//     errors.weight_max="Es requerido un peso máximo";
-// }
-// else if(!input.life_span_min && !input.life_span_min===Number ){
-// errors.life_span_min="Es requerido un valor mínimo ";
+else if((!input.height_min) &&(!input.height_min===Number)){
+        errors.height_min="Es requerida una altura mínima";
+    }
+    else if((!input.height_max)&&(!input.height_max===Number)){
+    errors.height_max="Es requerida una altura máxima";
+}
+else if(!input.weight_min && !input.weight_min===Number){
+    errors.weight_min="Es requerido un peso mínimo";
+}
+else if(!input.weight_max && !input.weight_max===Number){
+    errors.weight_max="Es requerido un peso máximo";
+}
+else if(!input.life_span_min && !input.life_span_min===Number ){
+errors.life_span_min="Es requerido un valor mínimo ";
     
-// } else if(!input.life_span_max && !input.life_span_max===Number ){
-//     errors.life_span_max="Es requerido un valor máximo ";
-// }
+} else if(!input.life_span_max && !input.life_span_max===Number ){
+    errors.life_span_max="Es requerido un valor máximo ";
+}
 
-// return errors;
-// }
+return errors;
+}
 export default function DogCreate(){
     const dispatch=useDispatch();
-    const navigate=useNavigate()
+  //const navigate=useNavigate()
    
     const temperament= useSelector((state)=> state.temperament)//traigo el estado
     const [errors, setErrors]=useState({});
@@ -65,12 +65,12 @@ export default function DogCreate(){
           ...input,
           [event.target.name]:event.target.value
         })
-    //       setErrors( validate({
-    //         ...input,
-    //         [event.target.name]:event.target.value
+          setErrors( validate({
+            ...input,
+            [event.target.name]:event.target.value
             
         
-    //   }))
+      }))
     }
     
 
@@ -82,12 +82,12 @@ export default function DogCreate(){
     }
     function handleSubmit(e){
         e.preventDefault();
-        //console.log(input)
-        // setErrors(validate({
-        //     ...input,
-        //     [e.target.value.name]:e.target.value
-        // }
-        // ));
+        console.log(input)
+        setErrors(validate({
+            ...input,
+            [e.target.value]:e.target.value
+        }
+        ));
         dispatch(postDog(input))
         alert("Perro exitosamente agregado")
         setInput({
@@ -107,7 +107,7 @@ export default function DogCreate(){
     }
 
   useEffect(() => {
-      dispatch(getTemperament())
+      dispatch(postDog())
       }, [dispatch]);
 
       return(
@@ -218,16 +218,16 @@ export default function DogCreate(){
 
                       <div>
                       <label>Temperamentos:</label>
-                      <select name="temperament" multiple onChange={(e)=> handleSelect(e)}>
+                      <select name="temperament" multiple onChange={ handleSelect}>
                           
                     
-                          <option value="">Selecciona temperamentos</option>
+                          <option value="todos">Selecciona temperamentos</option>
                         {temperament?.map(temperament=>(
-                            <option key={temperament.id} value={temperament.name}>{temperament.name}</option>
+                            <option key={temperament.id} value={temperament}>{temperament}</option>
                         ))}
                     
                 </select >
-                <ul><li>{input.temperament.map(elem=>elem + ",")}</li></ul>
+                <ul><li>{input.temperament.map(elem=>elem.temperament + ",")}</li></ul>
                 <button type="submit">Agregar perro</button>
                       </div>
                       

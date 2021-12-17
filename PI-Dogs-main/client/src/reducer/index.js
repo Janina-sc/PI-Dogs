@@ -1,3 +1,4 @@
+//import {GET_DOGS} from './index';//ver si importé bien
 
 const initialState={
     dogs:[],
@@ -5,7 +6,7 @@ const initialState={
     temperament:[],
     weight:[],
     breeds:[],
-    detail:{},
+    detail:[],
 }
 function  rootReducer(state=initialState, action){
 switch(action.type){
@@ -105,12 +106,26 @@ switch(action.type){
                      dogs:action.payload==="Todos" ? state.allDogs : createdFilter
                 }
 
+
+                // case 'FILTER_CREATED': probar algo así
+                //     const AllCharacters = state.allcharacters
+                //     const createdFilter =action.payload === 'All' ? AllCharacters : 
+                //             action.payload ==='created' ? AllCharacters.filter(el =>el.createdInDb === true) :
+                //             AllCharacters.filter(el =>!el.createdInDb)
+                //     return{
+                //         ...state,
+                //         characters:  createdFilter
+                //     }   
+
+
+
+
                 case "GET_DETAIL":
                     return{
                         ...state,
                         detail:action.payload.data
-
-                    }
+                        }
+                        
                 default:
             return state;
 }
