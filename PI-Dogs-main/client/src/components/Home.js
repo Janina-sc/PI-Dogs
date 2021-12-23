@@ -136,6 +136,7 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
                         temperament={elem.temperament} 
                         weight_min={elem.weight_min}
                         weight_max={elem.weight_max}
+                        //  life_span={elem.life_span}
                         key={elem.id} 
                          
                         />

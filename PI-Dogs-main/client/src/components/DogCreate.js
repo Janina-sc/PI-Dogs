@@ -218,12 +218,12 @@ export default function DogCreate(){
 
                       <div>
                       <label>Temperamentos:</label>
-                      <select name="temperament" multiple onChange={ handleSelect}>
+                      <select name="temperament" multiple>
                           
                     
                           <option value="todos">Selecciona temperamentos</option>
                         {temperament?.map(temperament=>(
-                            <option key={temperament.id} value={temperament}>{temperament}</option>
+                            <option onChange={ handleSelect}key={temperament.id} value={temperament}>{temperament}</option>
                         ))}
                     
                 </select >

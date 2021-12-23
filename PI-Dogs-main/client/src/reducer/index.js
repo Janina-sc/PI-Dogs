@@ -8,9 +8,11 @@ const initialState={
     breeds:[],
     detail:[],
 }
+
 function  rootReducer(state=initialState, action){
 switch(action.type){
     case "GET_DOGS":
+        console.log(state.allDogs)
         return {
             ...state,
             dogs:action.payload, //trae todo lo de la acción  GetDogs
@@ -101,10 +103,12 @@ switch(action.type){
                 
 
                 return {
+                    
                     ...state,
                     
                      dogs:action.payload==="Todos" ? state.allDogs : createdFilter
                 }
+                
 
 
                 // case 'FILTER_CREATED': probar algo así
@@ -121,10 +125,13 @@ switch(action.type){
 
 
                 case "GET_DETAIL":
+                    //console.log(action.payload.data)
                     return{
                         ...state,
-                        detail:action.payload.data
-                        }
+                        detail:action.payload,
+                        
+                    }
+                    
                         
                 default:
             return state;
