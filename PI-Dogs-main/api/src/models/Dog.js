@@ -14,6 +14,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    height:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
     height_min:{
       type: DataTypes.STRING,
       allowNull: false
@@ -21,6 +25,10 @@ module.exports = (sequelize) => {
     height_max:{
       type: DataTypes.STRING,
       allowNull: false
+    },
+    weight:{
+      type:DataTypes.STRING,
+      allowNull:false
     },
     weight_min:{
       type: DataTypes.STRING,
@@ -44,6 +52,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    
     
     createdInDb:{// por si quiero hacer llamado sólo a algo de db
     type: DataTypes.BOOLEAN,

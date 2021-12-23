@@ -33,12 +33,13 @@ const getApiData = async()=> {
             image: elem.image.url,
             name: elem.name,
             temperament:  [elem.temperament].join().split(",").map((elem)=>elem.trim()),
-            weight_min:elem.weight.metric.split("-")[0],
-            weight_max:elem.weight.metric.split("-")[1],
-            height_min:elem.height.metric.split("-")[0],
-            height_max:elem.height.metric.split("-")[1],
-            life_span_min: elem.life_span.split("-")[0],
-            life_span_max: elem.life_span.split("-")[1],
+            weight_min:elem.weight.metric.split(" -")[0],
+            weight_max:elem.weight.metric.split("- ")[1],
+            height_min:elem.height.metric.split(" -")[0],
+            height_max:elem.height.metric.split("- ")[1],
+            life_span_min: elem.life_span.split(" -")[0],
+            life_span_max: elem.life_span.split("- " )[1],
+            
 
         };
     });
@@ -141,7 +142,7 @@ let dogId = await allTheDogs.filter(elem=>elem.id==id);
 
  //Ruta (post/dog), publica algo en la base de datos
 router.post('/dog', async (req,res)=>{
-    let {name, height_min, height_max, weight_min,weight_max, life_span_min, life_span_max, temperament,createdInDb}= req.body;
+    let {name,  height_min, height_max, weight_min,weight_max, life_span_min, life_span_max,  temperament,createdInDb}= req.body;
     const dogCreated= await Dog.create({
         name,
         height_min,
