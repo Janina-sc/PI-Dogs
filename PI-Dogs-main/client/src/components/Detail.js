@@ -34,7 +34,7 @@ return (
                     <h3>Altura máxima:{myDog.height_max && myDog.height_max } cm</h3>
                     <h3>Peso mínimo:{myDog.weight_min && myDog.weight_min  } kg</h3>
                     <h3>Peso máximo:{myDog.weight_max && myDog.weight_max } kg</h3>
-                    <h3>Temperamento:{myDog.temperament?.map(elem => elem.temperament["name"] + (" "))}</h3>
+                    <h3>Temperamento:{myDog.temperament.join(", ")}</h3>
                     <h3>Vida promedio mínima:{myDog.life_span_min}</h3>
                     <h3>Vida promedio máxima:{myDog.life_span_max}</h3>
                 </div>
