@@ -218,17 +218,17 @@ export default function DogCreate(){
 
                       <div>
                       <label>Temperamentos:</label>
-                      <select name="temperament" multiple>
+                      <select name="temperament" multiple onChange={handleSelect}>
                           
                     
                           <option value="todos">Selecciona temperamentos</option>
                         {temperament?.map(temperament=>(
-                            <option onChange={ handleSelect}key={temperament.id} value={temperament}>{temperament}</option>
+                            <option key={temperament.id} value={temperament}>{temperament}</option>
                         ))}
                     
                 </select >
                 <ul><li>{input.temperament.map(elem=>elem.temperament + ",")}</li></ul>
-                <button type="submit">Agregar perro</button>
+                <button type="submit"> Agregar raza</button>
                       </div>
                       
                       
@@ -238,11 +238,11 @@ export default function DogCreate(){
                     <button onClick={()=> handleDelete(elem)}>X</button>
                     </div>)}
                     {
-        !(errors.username && errors.height_min && 
+        !(errors.height_min && errors.height_min && 
             errors.height_max && errors.weight_min && 
             errors.weight_max && errors.weight_min &&
              errors.life_span) &&
-                    <input type="submit"/>
+                    <input type="submit" />
 } 
       {/* <input type="submit" 
       className={(errors.username ||errors.password
