@@ -1,0 +1,33 @@
+.home{
+    background-color: rgb(243, 233, 221);
+    
+}
+
+h1{
+    color: rgb(78, 74, 74);
+        
+}
+.link-create-dog{
+    color: rgb(78, 74, 74);
+    font-size: medium;
+    padding: 20px 35px;
+    
+}
+.boton{
+    
+    position:center;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(73, 70, 70);
+    cursor: pointer;
+    
+}
+.boton>button:hover{
+    background: #ccc;
+} 

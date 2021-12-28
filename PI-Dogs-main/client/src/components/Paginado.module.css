@@ -1,3 +1,19 @@
 .number{
 display: inline-block;
+padding: 1px;
+}
+.paginado{
+    color: black;
+    float: left;
+    
+    text-decoration: none;
+  
+    background-color: rgb(168, 166, 166);
+    color:rgb(41, 40, 40);
+    border-radius: 5px;
+  }
+  
+  .paginado a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
 }

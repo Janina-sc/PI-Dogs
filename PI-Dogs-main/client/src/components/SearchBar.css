@@ -1,0 +1,61 @@
+/* .searchBar{
+    position: relative;
+   
+}
+.searchBar>input {
+    width: 45%;
+    padding: 0.5rem 4rem 0.5 rem 0.5rem;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 2px;
+    border-color:black;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.searchBar>button {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.25em;
+    font-size: 1.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem;
+    border-radius: 9999px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(73, 70, 70);
+    color: rgb(15, 16, 17);
+    background-color: rgb(160, 156, 156);
+    font-weight: 700;
+    font-size: 1rem;
+} */
+
+ 
+.searchBar{
+    position: relative;
+    
+    
+}
+.searchBar>input{
+    padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  
+}
+.searchBar>button{
+    position:center;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(73, 70, 70);
+    cursor: pointer;
+}
+.searchBar>button:hover{
+    background: #ccc;
+} 

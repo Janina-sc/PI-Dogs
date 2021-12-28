@@ -1,0 +1,10 @@
+.about{
+    background-image: url("./assets/Perfil\ about.jpg");
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 100px;
+    margin-top: 50px;
+    margin-left:100px;
+    margin-right: 100px;
+    padding: 20px;
+}

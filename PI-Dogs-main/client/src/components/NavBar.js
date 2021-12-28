@@ -1,21 +1,25 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import styles from "./NavBar.css"
 
 export default function NavBar() {
   return (
-    <div className="nav-bar">
-      <div>
-{/* ver si cambió algo en la nueva -v */}
-      <NavLink exact to="/" activeStyle={{color:"blue", backgroundColor: "grey"}}>Home </NavLink>
-      </div>
-      <div>
-      <NavLink  to="/about"activeStyle={{color:"blue", backgroundColor: "grey"}}>About</NavLink>
-      </div>
-      <div>
-          <NavLink  to="/myDog"activeStyle={{color:"blue", backgroundColor: "grey"}}>My Dog</NavLink>
-      </div>
-      {/* poner el About, About my favourite dog: Alfi, etc */}
+    <header className="navbar">
+    <div >
+      
+      <nav>
+        <ul className='list'>
+          <li className='list-item'>
+      <NavLink  to="/home" >Home </NavLink>
+      
+      <NavLink  to="/about">About</NavLink>
+      
+      <NavLink  to="/myDog">My Dog</NavLink>
+      </li>
+      </ul>
+      </nav>
       
     </div>
+    </header>
   );
 };

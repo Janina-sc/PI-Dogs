@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getNameDogs } from "../actions/index";
+import styles from "./SearchBar.css"
 
 export default function SearchBar(){
     const dispatch= useDispatch();
@@ -20,7 +21,7 @@ export default function SearchBar(){
     }
 
     return (
-        <div>
+        <div className="searchBar">
             <input 
             type="text"
             placeholder="Buscar por raza..."//ver ésto

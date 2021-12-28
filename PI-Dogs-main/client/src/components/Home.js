@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import Card from './Card';
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
+import styles from "./Home.css";
 
 
 export default function Home(){
@@ -69,17 +70,17 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
     
 
     return(
-        <div>
-            <div>
+        <div className="home">
+            <div className="image-home"></div>
             <h1>Amamos a los perros</h1>
-            </div>
+            
 
-            <div>
-            <Link to= '/createdog'>Agregar raza</Link>
+            <div >
+            <Link to= '/createdog'className="link-create-dog">Agregar raza</Link>
             </div>
             <div>
-            <button onClick={e=>{handleClick(e)}}>
-                Volver a cargar todos los perros
+            <button className="boton" onClick={e=>{handleClick(e)}}>
+               Cargar todos los perros
                 </button>
                 </div>
                 <div>
