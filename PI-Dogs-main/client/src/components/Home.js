@@ -88,10 +88,11 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
                      <div>
                          <SearchBar/>
                      </div>
-                
+                <div className="container-filtros" >
+                    
                 <div>
                     
-                   <label>Temperamentos:</label>
+                   <label >Temperamentos:</label>
 				<select name="filtertemperament" defaultValue={"default"} onChange={ e => handleFilterByTemperament(e)}>
                     <option value="default" name="default"> Temperamentos </option>
                     <option value="all">Todos los temperamentos</option>
@@ -112,25 +113,29 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
                  <option value="Provenientes de la Api">Provenientes de la API</option>
                 </select>
                 </div>
+                </div>
                 
-
-                        <div>
+                <div className="container-ordenamientos">
+                <div>
                 <select onChange={(e)=>handleSortBreedsByName(e)}>
                     <option value="asc">Raza de la A la Z</option>
                     <option value="desc">Raza de la Z a la A</option>
                 </select>
                 </div>
-
+                <div>
                 <select  onChange={(e)=>handleSortByWeight(e)}>
                     <option value="asc">Buscar por peso  ascendente</option>
                     <option value="desc">Buscar por peso descendente</option>
                 </select>
-
+                </div>
+                </div>
+                
 
                 { currentDogs?.map((elem)=>{//después del paginado sólo voy a mapear lo de cada pág
                         return (
-                            <fragment>
+                            
                                 <Link to={'/dog' + elem.id}>
+
                         <Card 
                         image={elem.image} image={elem.image? elem.image : elem.image}
                         name={elem.name} 
@@ -142,7 +147,7 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
                          
                         />
                         </Link>
-                        </fragment>
+                        
                 );
                     })
                 }

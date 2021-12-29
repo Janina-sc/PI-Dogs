@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import {getDetail} from '../actions/index';
+import styles from './Detail.css'
 
 
 
@@ -23,26 +24,29 @@ useEffect(()=>{//para que se actualice cuando haga los cambios(https://www.youtu
 
  //console.log(myDog[0])
 return (
-    <div >
+    <div className='container'>
     {
          myDog?
-                <div>
-                    <h3>Me llamo {myDog.name}</h3>
-                    <img src={myDog.image} alt="dog" />
-                    
-                    <h3>Altura mínima:{myDog.height_min && myDog.height_min} cm</h3>
-                    <h3>Altura máxima:{myDog.height_max && myDog.height_max } cm</h3>
-                    <h3>Peso mínimo:{myDog.weight_min && myDog.weight_min  } kg</h3>
-                    <h3>Peso máximo:{myDog.weight_max && myDog.weight_max } kg</h3>
-                    <h3>Temperamento:{myDog.temperament.join(", ")}</h3>
-                    <h3>Vida promedio mínima:{myDog.life_span_min}</h3>
-                    <h3>Vida promedio máxima:{myDog.life_span_max}</h3>
+                <div className='dog'>
+                    <h3> {myDog.name}</h3>
+                     <div classname= "detail-image"> 
+                    <img  class="detail-image" src={myDog.image} alt="dog" />
+                    </div> 
+                    <h5>Altura mínima:{myDog.height_min && myDog.height_min} cm</h5>
+                    <h5>Altura máxima:{myDog.height_max && myDog.height_max } cm</h5>
+                    <h5>Peso mínimo:{myDog.weight_min && myDog.weight_min  } kg</h5>
+                    <h5>Peso máximo:{myDog.weight_max && myDog.weight_max } kg</h5>
+                    <h5>Temperamento:{myDog.temperament.join(", ")}</h5>
+                    <h5>Vida promedio mínima:{myDog.life_span_min}</h5>
+                    <h5>Vida promedio máxima:{myDog.life_span_max}</h5>
                 </div>
                     :<p>Loading...</p> 
           }
+          <div className='detail-link'>
         <Link to= '/home'>
         <button>Volver</button>
     </Link>
+    </div>
 </div>
 )
 }

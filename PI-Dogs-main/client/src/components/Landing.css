@@ -12,10 +12,10 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: 50px;
-    margin-left:100px;
-    margin-right: 100px;
-    padding: 100px;
+    margin-top: 20px;
+    margin-left:150px;
+    margin-right: 150px;
+    padding: 150px;
 }
 .botonIngresar{
     color: rgb(56, 55, 54);

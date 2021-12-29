@@ -7,11 +7,23 @@ h1{
     color: rgb(78, 74, 74);
         
 }
-.link-create-dog{
-    color: rgb(78, 74, 74);
+.link-create-dog, .link-create-dog:visited{
+    background-color: rgb(131, 128, 128);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     font-size: medium;
-    padding: 20px 35px;
+    padding: 10px 20px;
+    font-size: 17px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(73, 70, 70);
     
+}
+.link-create-dog:hover, .link-create-dog{
+    background-color:rgb(180, 176, 176) ;
 }
 .boton{
     
@@ -31,3 +43,39 @@ h1{
 .boton>button:hover{
     background: #ccc;
 } 
+
+.container-filtros{
+    width: 80%;
+    margin-top: 20px;
+    position: relative;
+    left:10%;
+    right: 10%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(73, 70, 70);
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    background-image: url(./assets/patitas\ de\ perro.jpg);
+    height:  35px;
+    font-size: small;
+    
+}
+.container-ordenamientos{
+    width: 80%;
+    margin-top: 20px;
+    position: relative;
+    left:10%;
+    right: 10%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(73, 70, 70);
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    background-image: url(./assets/patitas\ de\ perro.jpg);
+    height:  35px;
+    font-size: small;
+}
