@@ -153,8 +153,8 @@ router.post('/dog', async (req,res)=>{
         life_span_max,
         createdInDb
     });
-    //console.log(dogCreated)
-    console.log(temperament, 'temperamentos')
+    //console.log(dogCreated)manejar error
+    // console.log(temperament, 'temperamentos')
       let temperamentDb = await Temperament.findAll({
         where:{name : temperament}
     });
