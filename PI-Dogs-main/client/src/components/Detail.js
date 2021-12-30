@@ -29,16 +29,16 @@ return (
          myDog?
                 <div className='dog'>
                     <h3> {myDog.name}</h3>
-                     <div classname= "detail-image"> 
+                     
                     <img  class="detail-image" src={myDog.image} alt="dog" />
-                    </div> 
+                     
                     <h5>Altura mínima:{myDog.height_min && myDog.height_min} cm</h5>
                     <h5>Altura máxima:{myDog.height_max && myDog.height_max } cm</h5>
                     <h5>Peso mínimo:{myDog.weight_min && myDog.weight_min  } kg</h5>
                     <h5>Peso máximo:{myDog.weight_max && myDog.weight_max } kg</h5>
                     <h5>Temperamento:{myDog.temperament.join(", ")}</h5>
-                    <h5>Vida promedio mínima:{myDog.life_span_min}</h5>
-                    <h5>Vida promedio máxima:{myDog.life_span_max}</h5>
+                    <h5>Vida promedio mínima:{myDog.life_span_min} años</h5>
+                    <h5>Vida promedio máxima:{myDog.life_span_max.slice(0,2)} años</h5>
                 </div>
                     :<p>Loading...</p> 
           }

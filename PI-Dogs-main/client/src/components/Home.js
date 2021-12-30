@@ -133,20 +133,17 @@ setOrden(`Ordenado ${e.target.value}`)//es lo que viene del select y en la actio
 
                 { currentDogs?.map((elem)=>{//después del paginado sólo voy a mapear lo de cada pág
                         return (
-                            
-                                <Link to={'/dog' + elem.id}>
-
-                        <Card 
+                    <Card 
                         image={elem.image} image={elem.image? elem.image : elem.image}
                         name={elem.name} 
                         temperament={elem.temperament} 
                         weight_min={elem.weight_min}
                         weight_max={elem.weight_max}
-                        
+                        id={elem.id}
                         key={elem.id} 
                          
                         />
-                        </Link>
+                       
                         
                 );
                     })
