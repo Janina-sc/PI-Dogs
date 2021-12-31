@@ -239,7 +239,7 @@ export default function DogCreate(){
                     </div>)}
                     {
         !(errors.height_min &&  errors.height_max && errors.weight_min &&
-            errors.weight_max && errors.weight_min &&
+            errors.weight_max && 
              errors.life_span_min && errors.life_span_max) &&
                     <input type="submit" />
 }
